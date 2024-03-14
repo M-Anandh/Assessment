@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Data</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(#f00cd1, #00f2fe);
+}
+
+h2 {
+    text-align: center;
+}
+
+#filterInput {
+    width: 300px;
+    padding: 10px;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#filterInput:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff;
+}
+
+#downloadBtn {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#downloadBtn:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #ddd; 
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.sort-btn {
+    cursor: pointer;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+    
+}
+
+
+.pagination button {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #01050f;
+    border: 1px solid #037e99;
+    border-radius: 5px;
+    margin: 0 5px;
+    background-color: #c19feb;
+}
+
+.pagination button:hover{
+  background-color: #901c52;
+
+}
+
+#openModalBtn {
+    display: inline-block;
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#openModalBtn:hover {
+    background-color: #45a049; 
+}
+
+
+#addRecordForm {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+}
+
+
+
+
+</style>
+</head>
+<body>
+
+<h2>Employee Data</h2>
+
+<input type="text" id="filterInput" placeholder="Filter by Designation">
+
+<button id="downloadBtn">Download JSON</button>
+
+<!-- Button to open the modal -->
+<button id="openModalBtn">Add Record</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="addRecordForm">
+        <input type="text" id="id" name="id" placeholder="Enter id" required> 
+        <input type="text" id="name" name="name" placeholder="Enter name" required> 
+        <input type="number" id="age" name="age" placeholder="Enter age" required> 
+        <input type="text" id="designation" name="designation" placeholder="Enter designation" required> 
+        <input type="text" id="salary" name="salary" placeholder="Enter salary" required> 
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  </div> 
+
+<table id="employeeTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name <span class="sort-btn" onclick="sortTable(1)">▲</span></th>
+      <th>Designation <span class="sort-btn" onclick="sortTable(2)">▲</span></th>
+      <th>Age <span class="sort-btn" onclick="sortTable(3)">▲</span></th>
+      <th>Salary <span class="sort-btn" onclick="sortTable(4)">▲</span></th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Data will be inserted here dynamically -->
+  </tbody>
+</table>
+<div class="pagination" id="pagination"></div>
+<script src="./script.js"></script>
+
+</body>
+</html>
